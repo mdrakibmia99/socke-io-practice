@@ -12,8 +12,8 @@ app.get('/',(req,res)=>{
 
 io.on('connection',(socket)=>{
     console.log('New user connect');
-    socket.on('chat',function(msg){
-        console.log(msg);
+    socket.on('chat',(msg)=>{
+        io.emit('msg_transfer',msg);
     })
 })
 

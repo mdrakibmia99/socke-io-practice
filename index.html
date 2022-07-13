@@ -68,16 +68,23 @@
 
 
     <ul id="messages"></ul>
-    <form id="form" action="" onsubmit="handleSubmit()">
-        <input id="input" name="inputField" autocomplete="off" /><button type="submit">Send</button>
-    </form>
+    <div id="form" >
+        <input id="input" name="inputField" autocomplete="off" /><button onclick="handleSubmit()">Send</button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
         const handleSubmit = () => {
+            event.preventDefault();
             const msg = document.getElementById('input').value;
             socket.emit('chat', msg)
         }
+        socket.on('msg_transfer',(msg)=>{
+            let li = document.createElement('li')
+            li.textContent=msg;
+            const msgContainer = document.getElementById('messages');
+            msgContainer.appendChild(li);
+        })
     </script>
 </body>
 
